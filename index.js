@@ -35,8 +35,9 @@ app.listen(process.env.PORT, () => {
  NOTES TO CODE
  Line 1 - imports the express library.  Express is a function that creates a server application
  Line 2 - imports mongoose
- Line 3 - imports dotenv
- Line 4 - runs dotenv.config() file
+ Line 3 - imports dotenv library.  This makes dotenv so it can be used. The   role of dotenv is to load variables from a .env file into process.env, without this node cannot read the .env file (node does not automatically 'understand' .env)
+ Line 4 - runs dotenv.config() file this executes dotenv.  It looks for a file in the project root, it reads all key=value pairs and injects them into node's environment object process.env. Because .env is text, then dotenv translates this into real environment variables.  This must run before anything requiring the variables - ie. before mongoose.connect
+ Note - in node.js, process is a global object that is automatically available everywhere. So process.env is an object that stores variables and each value is always a string ie process.env = {PORT:3000, MONGODB_URL:codewithuser&passwordetc}.  So process.env enables variables to be provided to your app from outside the code.
  Line 10 - const app = express() calls express to execute the  express function, it creates a new application instance and stores it in the variable named app.  this is important because everything in Express attached to app
  Line 12 - app.use(express.json()) - adds JSON middleware
  Line 13 - the code ..express.urlencoded(..) parses incoming data and converts it into a JavaScript object
@@ -45,7 +46,10 @@ app.listen(process.env.PORT, () => {
  Line 19 - '/' is the root URL, (req, res) => { } is the route handler function
  Line 20 - res.json(...) is the response back to the client
  Line 20 - 23 - {message: .., now: ... } is the object sent back to the client to confirm the server is running, that the routing works and JSON responses work
-
+ Line 26 - app.listen(process.env.PORT, () => {} tells node to start the express server and listen for incoming requests on this port.  The callback is this element () => {} and this function runs once the server starts successfully.
+ Line 27 - inside the callback function the code mongoose.connect(process.env.MONGODB_URL) connects to MongoDB using this URL
+Line 28-29 - the mongoose connection is asynchronous so it returns a promise; EITHER the .then(() => console.log('Server is ready!')) code runs if the connection succeeds OR .catch((error) => console.log('DB connection error', error)) runs if there is an error
+Lines 26-30 - Summary - Express starts listening on process.env.PORT, once listening succeeds the callback fires, then mongoose tries to connect to MongoDB, if success log "Server is ready", if failure log 'DB connection error'
 
  */
 
