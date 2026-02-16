@@ -3,11 +3,6 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 
-console.log("ENV CHECK:", {
-  PORT: process.env.PORT,
-  MONGODB_URL: process.env.MONGODB_URL
-})
-
 //Set up routes here
 //Set up routes here
 //Set up routes here
