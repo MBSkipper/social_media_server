@@ -23,11 +23,17 @@ app.get('/', (req, res) => {
     })
 })
 
-app.listen(process.env.PORT, () => {
-    mongoose.connect(process.env.MONGODB_URL)
-        .then(() => console.log('Server is ready!'))
-        .catch((error) => console.log('DB connection error', error))
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => {   
+        console.log('MongoDB connected successfully!')
+        app.listen(process.env.PORT, () => {
+        console.log(`Server is running on ${process.env.PORT}!`)
+    })
 })
+    .catch((error) => {
+        console.log('MongoDB connection error', error)
+    })
+
 
 
 
@@ -46,10 +52,12 @@ app.listen(process.env.PORT, () => {
  Line 19 - '/' is the root URL, (req, res) => { } is the route handler function
  Line 20 - res.json(...) is the response back to the client
  Line 20 - 23 - {message: .., now: ... } is the object sent back to the client to confirm the server is running, that the routing works and JSON responses work
- Line 26 - app.listen(process.env.PORT, () => {} tells node to start the express server and listen for incoming requests on this port.  The callback is this element () => {} and this function runs once the server starts successfully.
- Line 27 - inside the callback function the code mongoose.connect(process.env.MONGODB_URL) connects to MongoDB using this URL
-Line 28-29 - the mongoose connection is asynchronous so it returns a promise; EITHER the .then(() => console.log('Server is ready!')) code runs if the connection succeeds OR .catch((error) => console.log('DB connection error', error)) runs if there is an error
-Lines 26-30 - Summary - Express starts listening on process.env.PORT, once listening succeeds the callback fires, then mongoose tries to connect to MongoDB, if success log "Server is ready", if failure log 'DB connection error'
+ Line 26 - mongoose.connect(process.env.MONGODB_URL) - mongoose.connect() tries to connect your Node.js app to MongoDB and (process.env.MONGODB_URL) reads the environment variables whist keeping them secret 
+ Line 27-28 - .then(() => {...} so .connect returns a promise; .then only runs if connection succeeds so that server only starts when MongoDB is ready, then it logs a success message
+ Line 29 - app.listen(process.env.PORT, ...) starts the Express server and listen for incoming requests on this port.  Important - it is placed inside the .then() so the server will not run if the database failed
+ Line 33-34 - .catch((error) => {...} runs if the connection fails and logs the error so you know what went wrong.
+ Lines 26-35 - Summary - Connect to MongoDB , if successful start server, if failed don't start server and log error message
+
 
  */
 
@@ -116,9 +124,10 @@ General notes about databases
         - none db is not better than another but one may be better than another in specific scenarios
 
 
+
+
+
         
-
-
 
 
 
