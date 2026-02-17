@@ -68,4 +68,6 @@ module = Object representing the current file
 module.exports = What this file exposes
 require() = Retrieves module.exports
 
+In Node every file is treated as a module and in the background it wraps every file inside a function like this (function (exports, require, module, _filename, _dirname)) { my code here...}.  This means that inside every .js file Node automatically gives you require, exports, module, _filename and _dirname. So even though module was not declared it still exists
+
 */ 
