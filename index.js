@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 
-//Set up routes here
+const userRoutes = require('./src/routes/users.routes')
 //Set up routes here
 //Set up routes here
 
@@ -44,6 +44,8 @@ mongoose.connect(process.env.MONGODB_URL)
  Line 3 - imports dotenv library.  This makes dotenv so it can be used. The   role of dotenv is to load variables from a .env file into process.env, without this node cannot read the .env file (node does not automatically 'understand' .env)
  Line 4 - runs dotenv.config() file this executes dotenv.  It looks for a file in the project root, it reads all key=value pairs and injects them into node's environment object process.env. Because .env is text, then dotenv translates this into real environment variables.  This must run before anything requiring the variables - ie. before mongoose.connect
  Note - in node.js, process is a global object that is automatically available everywhere. So process.env is an object that stores variables and each value is always a string ie process.env = {PORT:3000, MONGODB_URL:codewithuser&passwordetc}.  So process.env enables variables to be provided to your app from outside the code.
+ Line 6 - const userRoutes = require('./src/routes/users.routes') connects users.routes to index.js
+
  Line 10 - const app = express() calls express to execute the  express function, it creates a new application instance and stores it in the variable named app.  this is important because everything in Express attached to app
  Line 12 - app.use(express.json()) - adds JSON middleware
  Line 13 - the code ..express.urlencoded(..) parses incoming data and converts it into a JavaScript object
