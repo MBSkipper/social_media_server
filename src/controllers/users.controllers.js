@@ -2,7 +2,12 @@ const User = require('../models/users.models')
 
 const fetchUsers = async (req, res) => {
     try {
-        const users = await User.find()
+        const users = await User.find() 
+
+        users.map(user => {
+            user.profilePic = process.env.BASE_URL + user.profilePic
+        })
+
         res.json({
             status: 'SUCCESS',
             data: users
@@ -23,7 +28,8 @@ const createUser = async (req, res) => {
             username, 
             email, 
             fullName, 
-            bio
+            bio,
+            profilePic: `/uploads/${req.file.filename}`
         })
 
         res.json({
@@ -80,3 +86,10 @@ module.exports = {
     updateUser,
     deleteUser
 }
+
+/*
+NOTES TO CODE
+
+ Line 7-8 - attaches base url to the uploaded image ie profilePic.  Full url appears in database data NOTE it is not clickable to click thru to the uploaded image
+ 
+ */
