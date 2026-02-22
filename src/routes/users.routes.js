@@ -13,7 +13,7 @@ router.get('/users',fetchUsers, )
 
 router.post('/users', upload.single('profilePic'), createUser)
 
-router.patch('/users/:id', updateUser)
+router.patch('/users/:id', upload.single('profilePic'), updateUser)
 
 router.delete('/users/:id', deleteUser)
 

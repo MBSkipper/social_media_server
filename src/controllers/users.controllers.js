@@ -13,9 +13,11 @@ const fetchUsers = async (req, res) => {
             data: users
         })
     } catch(error) {
+        console.error(error);
         res.status(500).json({
-            status: 'FAILED',
-            message: 'Something went wrong'
+            message: 'Something went wrong',
+            status: "FAILED",
+            error: error.message
         })
     }
 }
@@ -29,7 +31,7 @@ const createUser = async (req, res) => {
             email, 
             fullName, 
             bio,
-            profilePic: `/uploads/${req.file.filename}`
+            profilePic: req.file ? `/uploads/${req.file.filename}` : undefined
         })
 
         res.json({
@@ -37,9 +39,10 @@ const createUser = async (req, res) => {
             message: 'User created successfully!'
         })
     } catch(error) {
+        console.error(error);
         res.status(500).json({
-            status: 'FAILED',
-            error
+            status: "FAILED",
+            error: error.message
         })
     }
 }
@@ -56,10 +59,11 @@ const updateUser = async (req, res) => {
             message: 'User updated successfully!'
         })
 
-    } catch(error) {
+    } catch (error) {
+        console.error(error);
         res.status(500).json({
-            status: 'FAILED',
-            error
+            status: "FAILED",
+            error: error.message
         })
     }
 }
@@ -72,13 +76,15 @@ const deleteUser = async (req, res) => {
             status: 'SUCCESS',
             message: 'User deleted successfully!'
         })
-    } catch(error) {
+    } catch (error) {
+        console.error(error);
         res.status(500).json({
-            status: 'FAILED',
-            error
+            status: "FAILED",
+            error: error.message
         })
     }
 }
+
 
 module.exports = {
     fetchUsers,
@@ -91,5 +97,9 @@ module.exports = {
 NOTES TO CODE
 
  Line 7-8 - attaches base url to the uploaded image ie profilePic.  Full url appears in database data NOTE it is not clickable to click thru to the uploaded image
+ 
+ Line 34 - profilePic: req.file ? `/uploads/${req.file.filename}` : undefined - this makes upload of profile pic optional so that if no file is uploaded the server does not crash
+
+ Line 55 - user can only update fullName and bio, the rest of the document cannot be updated
  
  */

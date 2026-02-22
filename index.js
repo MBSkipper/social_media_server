@@ -11,7 +11,7 @@ const userRoutes = require('./src/routes/users.routes')
 const app = express()
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use('/uploads',express.static('uploads'))
 
 //Route connections here (Connect routes) eg. app.use('', userRoutes)
