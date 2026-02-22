@@ -1,5 +1,5 @@
 const Post = require('../models/post.models')
-const User = require('../models/user.models')
+const Users = require('../models/users.models')
 
 const fetchPosts = async (req, res) => {
     try {
@@ -8,7 +8,7 @@ const fetchPosts = async (req, res) => {
 
         res.json({
             status: 'SUCCESS',
-            data: posts
+            data: post
         })
     } catch(error) {
         console.error(error);
@@ -24,7 +24,7 @@ const createPost = async (req, res) => {
     try {
         const { author, content } = req.body
 
-        const user = Usesr.findById(author)
+        const user = Users.findById(author)
         if(!user) {
             return res.status(400).json({
             status: "FAILED",

@@ -5,7 +5,7 @@ dotenv.config()
 
 //Set up routes here (Import routes) eg. const userRoutes = require('./src/routes/users.routes')
 const userRoutes = require('./src/routes/users.routes')
-const postRoutes = require('src/routes/post.routes')
+const postRoutes = require('./src/routes/post.routes')
 //Set up routes here
 
 const app = express()
