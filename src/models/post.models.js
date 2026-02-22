@@ -4,7 +4,8 @@ const User = require('./users.models')
 const postSchema = mongoose.Schema ({
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: User
+        ref: User,
+        required: true
     },
     content: {
         type: String,

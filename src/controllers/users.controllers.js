@@ -1,4 +1,4 @@
-const User = require('../models/users.models')
+const Post = require('../models/post.models')
 
 const fetchUsers = async (req, res) => {
     try {
