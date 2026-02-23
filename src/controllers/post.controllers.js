@@ -4,7 +4,7 @@ const Users = require('../models/users.models')
 const fetchPosts = async (req, res) => {
     try {
         const { author } = req.query
-        const post = await Post.find( { author }) 
+        const post = await Post.find( { author }).populate('author', 'username fullName')
 
         res.json({
             status: 'SUCCESS',
@@ -24,7 +24,7 @@ const createPost = async (req, res) => {
     try {
         const { author, content } = req.body
 
-        const user = Users.findById(author)
+        const user = await Users.findById(author)
         if(!user) {
             return res.status(400).json({
             status: "FAILED",
@@ -97,3 +97,8 @@ module.exports = {
     updatePost,
     deletePost
 }
+
+/**
+ NOTES TO CODE
+ Line 7 - const post = await Post.find( { author }).populate('author', 'username fullName'), this element - .populate('author', 'username fullName') populates the GET post with the author's username and fullName when the author's posts are searched in Postman
+ */
