@@ -6,7 +6,8 @@ const {
     fetchPosts,
     createPost,
     updatePost,
-    deletePost
+    deletePost,
+    togglePostLike
 } = require('../controllers/post.controllers')
 
 router.get('/posts',fetchPosts, )
@@ -16,5 +17,7 @@ router.post('/posts', createPost)
 router.patch('/posts/:id', updatePost)
 
 router.delete('/posts/:id', deletePost)
+
+router.post('/posts/:id/like-toggle', togglePostLike)
 
 module.exports = router
