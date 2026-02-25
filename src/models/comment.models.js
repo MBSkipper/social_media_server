@@ -16,7 +16,7 @@ const commentSchema = mongoose.Schema ({
     content: {
         type: String,
         required: [true, 'content is required'],
-        minLength: 15
+        minLength: 4
     }, 
 }, {
     timestamps: true

@@ -5,7 +5,7 @@ const Users = require('../models/users.models')
 const fetchComments = async (req, res) => {
     try {
         const { post } = req.query
-        const postComment = await Comment.find({ post })
+        const postComment = await Comment.find({ post }).populate('author', 'username fullName').populate('post', 'content')
 
         res.json({
             status: 'SUCCESS',
@@ -33,7 +33,7 @@ const createComment = async (req, res) => {
             })
         } 
 
-        const postToComment = await Post.findById(author)
+        const postToComment = await Post.findById(post)
         if(!postToComment) {
             return res.status(400).json({
             status: "FAILED",
