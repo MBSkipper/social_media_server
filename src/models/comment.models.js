@@ -22,7 +22,7 @@ const commentSchema = mongoose.Schema ({
     timestamps: true
 })
 
-const Comment = mongoose.model('Comment', postSchema)
+const Comment = mongoose.model('Comment', commentSchema)
 
 module.exports = Comment
 
