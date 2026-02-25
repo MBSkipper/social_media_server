@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 
-//Set up routes here (Import routes) eg. const userRoutes = require('./src/routes/users.routes')
+//Import routes here eg. const userRoutes = require('./src/routes/users.routes')
 const userRoutes = require('./src/routes/users.routes')
 const postRoutes = require('./src/routes/post.routes')
-//Set up routes here
+const commentRoutes = require('./src/routes/comment.routes')
 
 const app = express()
 
@@ -17,7 +17,7 @@ app.use('/uploads',express.static('uploads'))
 //Route connections here (Connect routes) eg. app.use('', userRoutes)
 app.use('', userRoutes)
 app.use('', postRoutes)
-//Route connection here
+app.use('', commentRoutes)
 
 app.get('/', (req, res) => {
     res.json({
