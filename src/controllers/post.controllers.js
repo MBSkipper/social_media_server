@@ -54,10 +54,24 @@ const createPost = async (req, res) => {
 
 const updatePost = async (req, res) => {
     try {
+        /**/
+         console.log("params:", req.params);
+        console.log("body:", req.body);
+        console.log("query:", req.query);
+         /**/
+
         const { id } = req.params
         const { content } = req.body
+        /** */
+        const updated = await Post.findByIdAndUpdate( 
+            id, 
+            { content }, 
+            { new: true, runValidators: true } /** */
+        )
 
-        await Post.findByIdAndUpdate( id, { content })
+        if (!updated) {
+        return res.status(404).json({ status: "FAILED", error: "Post not found" });
+    }
 
         res.json({
             status:'SUCCESS',
