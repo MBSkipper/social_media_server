@@ -1,6 +1,6 @@
 const Comment = require('../models/comment.models')
 const Post = require('../models/post.models')
-const User = require('../models/users.models')
+const Users = require('../models/users.models')
 
 const fetchComments = async (req, res) => {
     try {
